@@ -1,0 +1,192 @@
+﻿<section>
+    <h2 data-bind="with: mortgage">
+        <span data-bind="text: name"></span>&nbsp;
+        <span>
+            <span data-bind="money: monthlyPaymentWithTaxesAndFees"></span>/month
+        </span>
+    </h2>
+    <ul class="nav nav-tabs">
+        <li class="active">
+            <a href="#mortgage" data-toggle="tab">Mortgage</a>
+        </li>
+        <li>
+            <a href="#amortization" data-toggle="tab" data-bind="command: { shown: amortizeCommand }, activity: amortizeCommand.isExecuting">Amortization</a>
+        </li>
+    </ul>
+
+    <div class="tab-content">
+        <div id="mortgage" class="tab-pane active">
+            <div data-bind="with: mortgage" class="row">
+                <form class="form-horizontal span7">
+                    <div class="control-group">
+                        <label class="control-label">Purchase Price:</label>
+                        <div class="controls">
+                            <div class="input-prepend input-append">
+                                <span class="add-on">$</span>
+                                <input type="text" class="input-small text-right" data-bind="value: purchasePrice.value" />
+                                <span class="add-on">.00</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Down Payment:</label>
+                        <div class="controls">
+                            <div class="input-prepend input-append">
+                                <span class="add-on">$</span>
+                                <input type="text" class="input-small text-right" data-bind="value: downPayment.value" />
+                                <span class="add-on">.00</span>
+                            </div>
+                            <span>&nbsp;LTV: <span data-bind="text: ltv"></span></span>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Rate:</label>
+                        <div class="controls">
+                            <div class="input-append">                    
+                                <input type="text" class="input-mini text-right" data-bind="value: rate.value" />
+                                <span class="add-on">%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Term:</label>
+                        <div class="controls">
+                            <div class="input-append">
+                                <input type="text" class="input-mini text-right" data-bind="value: term.value" />
+                                <span class="add-on">years</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Property Tax:</label>
+                        <div class="controls">
+                            <div class="input-prepend input-append">
+                                <span class="add-on">$</span>
+                                <input type="text" class="input-mini text-right" data-bind="value: propertyTax.value" />
+                                <span class="add-on">/ year</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">PMI:</label>
+                        <div class="controls">
+                            <div class="input-prepend input-append">
+                                <span class="add-on">$</span>
+                                <input type="text" class="input-mini text-right" data-bind="value: pmi.value" />
+                                <span class="add-on">/ month</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Association Dues:</label>
+                        <div class="controls">
+                            <div class="input-prepend input-append">
+                                <span class="add-on">$</span>
+                                <input type="text" class="input-mini text-right" data-bind="value: dues.value" />
+                                <span class="add-on">/ month</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Name:</label>
+                        <div class="controls">
+                            <input type="text" class="input-xlarge" data-bind="value: name" />
+                        </div>
+                    </div>
+                    <div class="control-group" data-bind="with: $parent">
+                        <button class="btn btn-primary" data-bind="command: saveCommand, activity: saveCommand.isExecuting">Save</button>
+                        <button class="btn" data-bind="command: copyCommand">Copy</button>
+                        <button class="btn btn-danger" data-bind="command: deleteCommand">Delete</button>
+                    </div>
+                </form>
+
+                <div class="span4">
+                    <div id="pieChart" style="width: 260px; height: 260px;" data-bind="pieChart: $parent.chartData"></div>
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Total Cost</th>
+                                <th>&nbsp;</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Principal:</td>
+                                <td class="text-right">
+                                    <span data-bind="money: totalPrincipal"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Interest:</td>
+                                <td class="text-right">
+                                    <span data-bind="money: totalInterest"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Taxes:</td>
+                                <td class="text-right">
+                                    <span data-bind="money: totalTaxes"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>PMI:</td>
+                                <td class="text-right">
+                                    <span data-bind="money: totalPmi"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Dues:</td>
+                                <td class="text-right">
+                                    <span data-bind="money: totalDues"></span>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td>Total:</td>
+                                <td class="text-right">
+                                    <span data-bind="money: totalCost"></span>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="span12">
+                    
+                </div>
+            </div>
+        </div>
+        <div id="amortization" class="tab-pane">
+            <p>The amortization schedule only includes principal and interest.  It does not include taxes and other fees.
+                <select class="pull-right input-small" data-bind="value: amortizationOption, command: { change: amortizeOptionCommand }">
+                    <option value="MONTH">Monthly</option>
+                    <option value="YEAR">Yearly</option>
+                </select>
+            </p>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Payment Nbr</th>
+                        <th>Payment</th>
+                        <th>Principal</th>
+                        <th>Interest</th>
+                        <th>Balance</th>
+                    </tr>
+                </thead>
+                <tbody data-bind="foreach: amortizationData">
+                    <tr>
+                        <td data-bind="text: period"></td>
+                        <td data-bind="money: payment"></td>
+                        <td data-bind="money: principal"></td>
+                        <td data-bind="money: interest"></td>
+                        <td data-bind="money: balance"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>

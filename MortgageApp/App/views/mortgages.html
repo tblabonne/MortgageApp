@@ -1,0 +1,40 @@
+﻿<section>
+    <h2>Welcome</h2>
+
+    <div class="row">
+        <div class="span7">
+            <p>
+                The Mortgage App is a sample web application that uses the Durandal Single-Page Application framework.  Its back-end
+            is written with ASP.NET Web API and Entity Framework.  
+            </p>
+            <p>
+                This application demonstrates how to:
+            </p>
+            <ul>
+                <li>Setup and use Durandal from the Starter Kit for Visual Studio 2013.</li>
+                <li>Write a Web API controller that uses Entity Framework for simple CRUD operations.</li>
+                <li>Configure basic routing in Durandal.</li>
+                <li>Write custom Knockout binding handlers and extensions.</li>
+                <li>Write a rich JavaScript object model with Knockout observability.</li>
+                <li>Write clean, modular JavaScript code.</li>
+                <li>Use the Flot graph/chart library.</li>
+                <li>Use the KoLite command and dirty state tracking systems.</li>
+            </ul>
+        </div>
+
+        <div class="span4 well well-large">
+            <button class="btn btn-success btn-block" data-bind="command: createCommand">New Mortgage</button>
+    
+            <h3>Recent Mortgages:</h3>
+            <ul data-bind="foreach: mortgages">
+                <li>
+                    <a data-bind="attr: { href: '#mortgage/' + id() }">
+                        <span data-bind="text: name"></span> - <span data-bind="money: monthlyPaymentWithTaxesAndFees"></span>/mo.
+                    </a>
+                </li>
+            </ul>
+
+            <a href="#compare">Compare Mortgages</a>
+        </div>
+    </div>
+</section>

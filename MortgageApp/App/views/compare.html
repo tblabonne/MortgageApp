@@ -1,0 +1,94 @@
+﻿<section>
+    <h2>Compare Mortgages</h2>
+    <p>Select up to three mortgages to compare:</p>
+
+    <ul data-bind="foreach: allMortgages">
+        <li>
+            <label class="checkbox inline">
+                <input type="checkbox" style="vertical-align: middle;" data-bind="checked: selected, enable: $parent.canSelect() || selected()" />
+                <span data-bind="text: mortgage.name"></span> - <span data-bind="money: mortgage.monthlyPaymentWithTaxesAndFees"></span>/mo.
+            </label>
+        </li>
+    </ul>
+    <a href="#" data-bind="command: clearCommand, visible: hasSelection">Clear Selections</a>
+
+    <div class="alert alert-success" data-bind="visible: !hasSelection()">
+        Check two or more mortgages in the list above to see a comparison here.
+    </div>
+
+    <table class="table" data-bind="visible: hasSelection">
+        <thead>
+            <tr>
+                <th>&nbsp;</th>
+                <!-- ko foreach: selectedMortgages -->
+                    <th>
+                        <a data-bind="text: name, attr: { href: '#mortgage/' + id() }"></a>
+                        <span class="label label-success" data-bind="if: $parent.bestMortgage() === $data">Best</span>
+                    </th>
+                <!-- /ko -->
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Monthly Payment</td>
+                <!-- ko foreach: selectedMortgages -->
+                    <td data-bind="money: monthlyPaymentWithTaxesAndFees"></td>
+                <!-- /ko -->
+            </tr>
+            <tr>
+                <td>Term</td>
+                <!-- ko foreach: selectedMortgages -->
+                    <td>
+                        <span data-bind="text: term"></span> years
+                    </td>
+                <!-- /ko -->
+            </tr>
+            <tr>
+                <td>Rate</td>
+                <!-- ko foreach: selectedMortgages -->
+                    <td>
+                        <span data-bind="text: rate.value"></span>%
+                    </td>
+                <!-- /ko -->
+            </tr>
+            <tr>
+                <td>Principal</td>
+                <!-- ko foreach: selectedMortgages -->
+                    <td data-bind="money: totalPrincipal"></td>
+                <!-- /ko -->
+            </tr>
+            <tr>
+                <td>Interest</td>
+                <!-- ko foreach: selectedMortgages -->
+                    <td data-bind="money: totalInterest"></td>
+                <!-- /ko -->
+            </tr>
+            <tr>
+                <td>Taxes</td>
+                <!-- ko foreach: selectedMortgages -->
+                    <td data-bind="money: totalTaxes"></td>
+                <!-- /ko -->
+            </tr>
+            <tr>
+                <td>PMI</td>
+                <!-- ko foreach: selectedMortgages -->
+                    <td data-bind="money: totalPmi"></td>
+                <!-- /ko -->
+            </tr>
+            <tr>
+                <td>Dues</td>
+                <!-- ko foreach: selectedMortgages -->
+                    <td data-bind="money: totalDues"></td>
+                <!-- /ko -->
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td>Total Cost</td>
+                <!-- ko foreach: selectedMortgages -->
+                    <td data-bind="money: totalCost"></td>
+                <!-- /ko -->
+            </tr>
+        </tfoot>
+    </table>
+</section>
